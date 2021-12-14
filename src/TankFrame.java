@@ -5,10 +5,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
-    Bullet b= new Bullet(300,300,Dir.DOWN);
-    static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+    //创建坦克时传入自己
+    Tank myTank = new Tank(200, 200, Dir.DOWN,this);
+    Bullet b = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
+    //在创建tankFrame对象时创建窗口，设定窗口的属性
     public TankFrame() {
         setVisible(true);
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -27,28 +29,25 @@ public class TankFrame extends Frame {
 
     //双缓冲解决屏幕闪烁问题
     Image offScreenImage = null;
+
     @Override
-    public void update(Graphics g){
-        if(offScreenImage == null) {
-            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
         b.paint(g);
-        /*
-        x += 10;
-        y += 10;
-        */
 
     }
 
@@ -95,6 +94,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;

@@ -5,6 +5,7 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     private boolean moving = false;
+    private TankFrame tf = null;
 
     public boolean isMoving() {
         return moving;
@@ -23,10 +24,12 @@ public class Tank {
     }
 
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        //从TankFrame类传入参数
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -37,8 +40,8 @@ public class Tank {
         move(g);
     }
 
-    private void move(Graphics g){
-        if(!moving)return;
+    private void move(Graphics g) {
+        if (!moving) return;
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -53,6 +56,10 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+    }
+
+    public void fire() {
+        tf.b = new Bullet(this.x, this.y, this.dir);
     }
 
 }
