@@ -1,19 +1,25 @@
 import java.awt.*;
 
 public class Bullet {
-    private static final int SPEED = 1;
-    private int x,y;
+    private static final int SPEED = 10;
+    private int x, y;
     private Dir dir;
-    private static final int WIDTH =30, HEIGHT = 30;
+    private static final int WIDTH = 30, HEIGHT = 30;
+    private boolean live = true;
+    private TankFrame tf = null;
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
-        Color c =g.getColor();
+        if (!live) {
+           tf.bullets.remove(this);
+        }
+        Color c = g.getColor();
         g.setColor(Color.RED);
         g.fillOval(x, y, WIDTH, HEIGHT);
         g.setColor(c);
@@ -36,5 +42,6 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
     }
 }

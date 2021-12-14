@@ -3,11 +3,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
     //创建坦克时传入自己
     Tank myTank = new Tank(200, 200, Dir.DOWN,this);
-    Bullet b = new Bullet(300, 300, Dir.DOWN);
+    List<Bullet> bullets = new ArrayList<Bullet>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     //在创建tankFrame对象时创建窗口，设定窗口的属性
@@ -47,7 +49,9 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
-        b.paint(g);
+        for(int i=0;i<bullets.size();++i){
+            bullets.get(i).paint(g);
+        }
 
     }
 
