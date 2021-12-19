@@ -17,12 +17,9 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!live) {
-           tf.bullets.remove(this);
+            tf.bullets.remove(this);
         }
-        Color c = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(c);
+        g.drawImage(ResourceManager.tankMissile,x,y,null);
         move(g);
     }
 
